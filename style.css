@@ -19,6 +19,7 @@ body {
 
 #display-area {
   background-color: #4b5461;
+  position: relative;
   height: 180px;
   width: inherit;
   display: flex;
@@ -31,12 +32,17 @@ body {
 #display {
   background-color: #c8cac7;
   width: 86%;
-  height: 60%;
+  height: 50%;
   text-align: right;
   font-size: 48px;
   font-family: monospace;
   border: 3px solid gray;
   border-radius: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-bottom: 10px;
+  padding-right: 10px;
 }
 
 #buttons-area {
