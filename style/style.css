@@ -82,12 +82,12 @@ body {
   background-color: #4b5c6c;
 }
 
-#button-equals {
+#button-evaluate {
   background-color: #fe6a00;
   color: black;
 }
 
-#button-equals:hover {
+#button-evaluate:hover {
   background-color: #de4a00;
 }
 
