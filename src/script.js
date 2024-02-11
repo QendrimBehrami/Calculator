@@ -1,3 +1,7 @@
+/*
+Old, plain JS
+*/
+
 const OPERATORS = ["÷", "×", "−", "+"];
 const OPERATOR_PATTERN = /[÷×−+]/;
 
