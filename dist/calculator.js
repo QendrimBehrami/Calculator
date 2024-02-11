@@ -1,15 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.evaluate = void 0;
 const OPERATOR_REGEX = /[+\-*/]/g;
 const PRECISION = 6; // Precision of decimal numbers
-const parser_1 = require("./parser");
+import { Parser } from "./parser.js";
+/**
+ * Evaluate the mathematical expression by invoking the parser
+ * @param expression
+ * @returns evaluation
+ */
 function evaluate(expression) {
     expression = expression.replace(/\s/g, ""); //Remove all whitespace
-    let parser = new parser_1.Parser(expression);
+    let parser = new Parser(expression);
     return fix(parser.parse(), PRECISION);
 }
-exports.evaluate = evaluate;
 /**
  * Round floating-point number if necessary
  * @param a number to round
@@ -18,5 +19,16 @@ exports.evaluate = evaluate;
  */
 function fix(a, precision) {
     return parseFloat(a.toFixed(precision));
+}
+// Website wiring :D
+let display = document.querySelector("#display");
+let digitButtons = document.querySelectorAll(".button-digit");
+digitButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        console.log("Pressed " + button.textContent);
+    });
+});
+if (display?.textContent != null) {
+    display.textContent = "Hallo";
 }
 //# sourceMappingURL=calculator.js.map

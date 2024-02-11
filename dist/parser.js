@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Parser = void 0;
-class Parser {
+export class Parser {
+    input; // The original input
+    current; // The current position in the input string
     constructor(expression) {
         this.input = expression;
         this.current = 0;
@@ -100,5 +99,4 @@ class Parser {
         return this.expr();
     }
 }
-exports.Parser = Parser;
 //# sourceMappingURL=parser.js.map

@@ -1,4 +1,10 @@
-import { evaluate } from "../src/calculator";
+import { Parser } from "../src/parser";
+
+export function evaluate(expression: string): number {
+  expression = expression.replace(/\s/g, ""); //Remove all whitespace
+  let parser = new Parser(expression);
+  return parser.parse();
+}
 
 describe("Arithmetic operations", () => {
   // Easy expressions

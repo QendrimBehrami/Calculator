@@ -1,9 +1,14 @@
 const OPERATOR_REGEX = /[+\-*/]/g;
 const PRECISION = 6; // Precision of decimal numbers
 
-import { Parser } from "./parser";
+import { Parser } from "./parser.js";
 
-export function evaluate(expression: string): number | null {
+/**
+ * Evaluate the mathematical expression by invoking the parser
+ * @param expression
+ * @returns evaluation
+ */
+function evaluate(expression: string): number {
   expression = expression.replace(/\s/g, ""); //Remove all whitespace
   let parser = new Parser(expression);
   return fix(parser.parse(), PRECISION);
@@ -17,4 +22,17 @@ export function evaluate(expression: string): number | null {
  */
 function fix(a: number, precision: number) {
   return parseFloat(a.toFixed(precision));
+}
+
+// Website wiring :D
+let display = document.querySelector("#display");
+let digitButtons = document.querySelectorAll(".button-digit");
+digitButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log("Pressed " + button.textContent);
+  });
+});
+
+if (display?.textContent != null) {
+  display.textContent = "Hallo";
 }
