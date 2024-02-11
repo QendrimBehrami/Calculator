@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style/style.css" />
+    <script type="module" src="dist/calculator.js" defer></script>
   </head>
   <body>
+    <h1>WIP</h1>
     <div id="calculator">
       <div id="display-area">
         <div id="display">0</div>
@@ -16,32 +17,32 @@
         <div class="button-row">
           <button id="button-clearAll">AC</button>
           <button id="button-clearLast">CE</button>
-          <button id="button-modulo">mod</button>
-          <button id="button-division">&div;</button>
+          <button id="button-percent">&percnt;</button>
+          <button class="button-operator">&div;</button>
         </div>
         <div class="button-row">
           <button class="button-digit">7</button>
           <button class="button-digit">8</button>
           <button class="button-digit">9</button>
-          <button id="button-multiplication">&times;</button>
+          <button class="button-operator">&times;</button>
         </div>
         <div class="button-row">
           <button class="button-digit">4</button>
           <button class="button-digit">5</button>
           <button class="button-digit">6</button>
-          <button id="button-subtraction">&minus;</button>
+          <button class="button-operator">&minus;</button>
         </div>
         <div class="button-row">
           <button class="button-digit">1</button>
           <button class="button-digit">2</button>
           <button class="button-digit">3</button>
-          <button id="button-addition">&plus;</button>
+          <button class="button-operator">&plus;</button>
         </div>
         <div class="button-row">
           <button class="button-digit">0</button>
+          <button class="button-digit">00</button>
           <button id="button-dot">.</button>
-          <button id="button-plus-minus">&plusmn;</button>
-          <button id="button-equals">&equals;</button>
+          <button id="button-evaluate">&equals;</button>
         </div>
       </div>
     </div>
