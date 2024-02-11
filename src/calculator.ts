@@ -1,2 +1,3 @@
-console.log("TypeScript activated!");
-let x: Number = 15;
+export function evaluate(expression: String): Number | null {
+  return null;
+}
