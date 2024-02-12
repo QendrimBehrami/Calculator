@@ -75,5 +75,26 @@ describe("Arithmetic operations", () => {
     expect(result).toBe(-6);
   });
 
+  // Percentage expressions
+  it("should handle percentage expressions", () => {
+    const result = evaluate("10%");
+    expect(result).toBe(0.1);
+  });
+
+  it("should handle percentage expressions with negative numbers", () => {
+    const result = evaluate("-10%");
+    expect(result).toBe(-0.1);
+  });
+
+  it("should handle percentage expressions with floating point numbers", () => {
+    const result = evaluate("0.5%");
+    expect(result).toBe(0.005);
+  });
+
+  it("should handle percentage expression multiplication", () => {
+    const result = evaluate("0.5%*80");
+    expect(result).toBe(0.4);
+  });
+
   // TODO: Parenthesis, Malformed Expressions, Multiple Unary Minus and Overflow/Underflow
 });

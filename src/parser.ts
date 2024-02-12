@@ -53,6 +53,10 @@ export class Parser {
       num += this.peek();
       this.advance();
     }
+    if (!this.isEof() && this.peek() === "%") {
+      this.advance(); // Consume the percentage symbol
+      return parseFloat(num) / 100; // Convert the percentage to a decimal
+    }
     return parseFloat(num);
   }
 

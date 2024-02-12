@@ -23,6 +23,19 @@ function evaluate(expression) {
 function fix(a, precision) {
     return parseFloat(a.toFixed(precision));
 }
+function adjustDisplayFontSize() {
+    const maxFontSize = 48; // Maximum font size in pixels
+    const minFontSize = 8; // Minimum font size in pixels
+    let fontSize = maxFontSize;
+    let display = document.querySelector("#display");
+    if (display === null || display.value == null)
+        throw new Error("Display not found");
+    display.style.fontSize = `${fontSize}px`;
+    while (display.scrollWidth > display.offsetWidth && fontSize > minFontSize) {
+        fontSize--;
+        display.style.fontSize = `${fontSize}px`;
+    }
+}
 /**
  * Update the display with the given string while ensuring that the display is valid
  * @param str the string to display
@@ -30,46 +43,45 @@ function fix(a, precision) {
  */
 function updateDisplay(str, append = true) {
     let display = document.querySelector("#display");
-    if (display === null || display.textContent == null)
+    if (display === null || display.value == null)
         throw new Error("Display not found");
     if (!append) {
-        display.textContent = str;
+        display.value = str;
+        adjustDisplayFontSize();
         return;
     }
+    let fullOperatorRegex = /[÷×+*/−]/;
     // Overwrite the display if the current value is 0 (and the string is a number) or an error
-    if ((display.textContent === "0" && str.match(/\d/)) ||
-        display.textContent == "Error") {
-        display.textContent = "";
+    if ((display.value === "0" && str.match(/\d/)) || display.value == "Error") {
+        display.value = "";
     }
     // Prevent multiple operators next to each other (minus is an exception, it can be used to input negative numbers)
     // Note: The parser can handle multiple unary minuses in a row, so we don't need to check for that
-    if (display.textContent
-        .charAt(display.textContent.length - 1)
-        .match(/[÷×+*/−]/) &&
+    if (display.value.charAt(display.value.length - 1).match(fullOperatorRegex) &&
         str.match(/[÷×+*/]/)) {
-        display.textContent = display.textContent.slice(0, -1);
+        display.value = display.value.slice(0, -1);
     }
+    let lastNumber = display.value.split(fullOperatorRegex).pop();
     // Prevent multiple decimal points in a number, but allow them in different numbers
     if (str === ".") {
-        // Find the index of the last operator
-        let lastOperator = display.textContent
-            .split("")
-            .reverse()
-            .join("")
-            .search(/[÷×+*/−]/);
-        // Get the number after the last operator
-        let lastNumber = display.textContent.slice(-lastOperator);
         // If the last number contains a decimal point, don't allow another one
         if (lastNumber.includes(".") && str === ".") {
             return;
         }
     }
-    // Handle the 00-button, which should only be allowed if the display is not 0
-    if (str === "00" && display.textContent === "0") {
+    // Handle the 00-button, if the last number is not 0 or empty, append the string
+    if (str === "00" && (!lastNumber || lastNumber === "0")) {
         return;
     }
+    // Prevent multiple percentage symbols in a number
+    if (str === "%") {
+        if (!lastNumber || lastNumber.includes("%")) {
+            return;
+        }
+    }
     // Finally, append the string to the display
-    display.textContent += str;
+    display.value += str;
+    adjustDisplayFontSize();
 }
 // Let the user input digits
 let digitButtons = document.querySelectorAll(".button-digit");
@@ -89,6 +101,24 @@ operatorButtons.forEach((button) => {
 let clearButton = document.querySelector("#button-clearAll");
 clearButton?.addEventListener("click", () => {
     updateDisplay("0", false);
+    adjustDisplayFontSize();
+});
+// Let the user clear the last input
+let clearLastButton = document.querySelector("#button-clearLast");
+clearLastButton?.addEventListener("click", () => {
+    let display = document.querySelector("#display");
+    if (display === null || display.value == null)
+        throw new Error("Display not found");
+    display.value = display.value.slice(0, -1);
+    if (display.value === "") {
+        display.value = "0";
+    }
+    adjustDisplayFontSize();
+});
+// Let the user input a percentage
+let percentButton = document.querySelector("#button-percent");
+percentButton?.addEventListener("click", () => {
+    updateDisplay("%", true);
 });
 // Let the user evaluate the expression
 let evaluateButton = document.querySelector("#button-evaluate");
@@ -96,7 +126,7 @@ evaluateButton?.addEventListener("click", () => {
     let display = document.querySelector("#display");
     if (display === null)
         throw new Error("Display not found");
-    let expression = display.textContent;
+    let expression = display.value;
     // Now the parser can evaluate the expression
     let result = evaluate(expression);
     // Check if result is NaN or Infinity

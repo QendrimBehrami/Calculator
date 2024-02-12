@@ -16,6 +16,7 @@ body {
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 0px 5px #666;
+  max-width: 450px;
 }
 
 #display-area {
@@ -28,10 +29,12 @@ body {
   align-items: center;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
+  flex: 0 0 auto;
 }
 
 #display {
   background-color: #c8cac7;
+  color: black;
   width: 86%;
   height: 50%;
   text-align: right;
@@ -42,8 +45,13 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   padding-right: 10px;
+  padding-left: 10px;
+
+  overflow: auto;
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 #buttons-area {
