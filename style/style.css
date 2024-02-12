@@ -1,5 +1,7 @@
 body {
+  background: radial-gradient(circle, #84cfe4, white);
   background-color: #84cfe4;
+
   font-family: "Roboto", sans-serif;
 
   display: flex;
